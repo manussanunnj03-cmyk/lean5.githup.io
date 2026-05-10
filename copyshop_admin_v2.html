@@ -1,0 +1,351 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.w{padding:.875rem .875rem 3rem;font-size:14px;color:var(--color-text-primary)}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.875rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-icon{width:34px;height:34px;background:#E6F1FB;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.logo-title{font-size:14px;font-weight:500}
+.logo-sub{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
+.avatar{width:28px;height:28px;border-radius:50%;background:#E6F1FB;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#0C447C}
+.tabs{display:flex;gap:2px;background:var(--color-background-secondary);border-radius:8px;padding:3px;margin-bottom:1rem}
+.tab{flex:1;padding:6px;border:none;background:none;border-radius:5px;cursor:pointer;font-size:12px;color:var(--color-text-secondary);font-family:inherit;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .12s}
+.tab.on{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500;border:0.5px solid var(--color-border-tertiary)}
+.pg{display:none}.pg.on{display:block}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:1rem}
+.sc{background:var(--color-background-secondary);border-radius:8px;padding:.75rem;text-align:center}
+.sn{font-size:22px;font-weight:500}.sl{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.frow{display:flex;gap:5px;margin-bottom:.875rem;flex-wrap:wrap;align-items:center}
+.fb{padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:16px;background:none;cursor:pointer;font-size:11px;color:var(--color-text-secondary);font-family:inherit;transition:all .12s}
+.fb.on{background:#E6F1FB;color:#0C447C;border-color:#85B7EB;font-weight:500}
+.srch{margin-left:auto;position:relative}
+.srch input{padding:4px 8px 4px 26px;border:0.5px solid var(--color-border-secondary);border-radius:16px;background:var(--color-background-primary);color:var(--color-text-primary);font-size:11px;font-family:inherit;width:140px}
+.srch input:focus{outline:none;border-color:#378ADD}
+.si{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--color-text-secondary);pointer-events:none}
+.oc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;margin-bottom:7px;overflow:hidden}
+.oc:hover{border-color:var(--color-border-secondary)}
+.oh{display:flex;align-items:center;gap:9px;padding:.75rem .875rem;cursor:pointer}
+.ocode{font-size:15px;font-weight:500;letter-spacing:.07em;color:#185FA5;font-family:monospace;min-width:76px}
+.oi{flex:1;min-width:0}
+.oname{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ometa{font-size:11px;color:var(--color-text-secondary);margin-top:1px}
+.or{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.bdg{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:16px;font-size:10px;font-weight:500}
+.bp{background:#FAEEDA;color:#633806}
+.bw{background:#E6F1FB;color:#0C447C}
+.br{background:#EAF3DE;color:#27500A}
+.bd{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.bpaid{background:#EAF3DE;color:#27500A}
+.bcash{background:#FAEEDA;color:#633806}
+.chv{font-size:13px;color:var(--color-text-secondary);transition:transform .15s}
+.ob{display:none;border-top:0.5px solid var(--color-border-tertiary);padding:.75rem .875rem}
+.ob.open{display:block}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px 14px;margin-bottom:.75rem}
+.dr .dl{font-size:10px;color:var(--color-text-secondary)}
+.dr .dv{font-size:12px;font-weight:500;margin-top:1px}
+.slip-box{background:var(--color-background-secondary);border-radius:8px;padding:.625rem;margin-bottom:.75rem;display:flex;align-items:center;gap:9px}
+.slip-ic{width:38px;height:38px;background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.slip-inf{flex:1}.slip-nm{font-size:11px;font-weight:500}.slip-sb{font-size:10px;color:var(--color-text-secondary);margin-top:1px}
+.slip-acts{display:flex;gap:5px}
+.ar{display:flex;gap:6px;flex-wrap:wrap}
+.ab{padding:6px 11px;border:0.5px solid var(--color-border-secondary);border-radius:7px;background:none;cursor:pointer;font-size:11px;color:var(--color-text-primary);font-family:inherit;display:flex;align-items:center;gap:4px;transition:all .12s;white-space:nowrap}
+.ab:hover{background:var(--color-background-secondary)}
+.ab.bl{background:#185FA5;color:white;border-color:#185FA5}.ab.bl:hover{background:#0C447C}
+.ab.gr{background:#3B6D11;color:white;border-color:#3B6D11}.ab.gr:hover{background:#27500A}
+.ab.am{color:#633806;border-color:#FAC775}.ab.am:hover{background:#FAEEDA}
+.ab.rd{color:#791F1F;border-color:#F09595}.ab.rd:hover{background:#FCEBEB}
+.ns{font-size:10px;color:#27500A;display:flex;align-items:center;gap:3px;margin-top:5px}
+.emp{text-align:center;padding:2.5rem 1rem;color:var(--color-text-secondary);font-size:13px}
+.vw{max-width:380px;margin:0 auto;padding-top:.5rem}
+.vc{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:1.1rem}
+.vt{font-size:14px;font-weight:500;margin-bottom:3px}
+.vs{font-size:11px;color:var(--color-text-secondary);margin-bottom:.875rem}
+.ci{width:100%;text-align:center;font-size:24px;letter-spacing:.14em;font-weight:500;font-family:monospace;padding:10px;border:0.5px solid var(--color-border-secondary);border-radius:7px;background:var(--color-background-secondary);color:var(--color-text-primary);text-transform:uppercase}
+.ci:focus{outline:none;border-color:#378ADD;box-shadow:0 0 0 3px rgba(55,138,221,.12);background:var(--color-background-primary)}
+.vb{width:100%;padding:10px;background:#185FA5;color:white;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;margin-top:.75rem;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .12s}
+.vb:hover{background:#0C447C}
+.res{margin-top:.75rem;border-radius:10px;padding:.875rem;border:0.5px solid}
+.rok{background:#EAF3DE;border-color:#97C459}
+.rer{background:#FCEBEB;border-color:#F09595}
+.rwn{background:#FAEEDA;border-color:#FAC775}
+.rt{font-size:13px;font-weight:500;display:flex;align-items:center;gap:5px;margin-bottom:4px}
+.rok .rt{color:#27500A}.rer .rt{color:#791F1F}.rwn .rt{color:#633806}
+.rb{font-size:11px;line-height:1.8}
+.rok .rb{color:#3B6D11}.rer .rb{color:#A32D2D}.rwn .rb{color:#854F0B}
+.cpb{width:100%;margin-top:.75rem;padding:10px;background:#3B6D11;color:white;border:none;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .12s}
+.cpb:hover{background:#27500A}
+.toast{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);background:#2C2C2A;color:#F1EFE8;padding:7px 16px;border-radius:16px;font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;z-index:99}
+.toast.show{opacity:1}
+</style>
+
+<div class="w" style="position:relative">
+<h2 class="sr-only">ระบบหลังบ้านร้านถ่ายเอกสาร</h2>
+
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-icon"><i class="ti ti-printer" style="font-size:18px;color:#185FA5" aria-hidden="true"></i></div>
+    <div><div class="logo-title">Admin Panel</div><div class="logo-sub" id="dstr"></div></div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button onclick="loadOrders()" style="padding:5px 10px;border:0.5px solid var(--color-border-secondary);border-radius:7px;background:none;cursor:pointer;font-size:11px;color:var(--color-text-secondary);font-family:inherit;display:flex;align-items:center;gap:4px"><i class="ti ti-refresh" style="font-size:13px"></i>รีเฟรช</button>
+    <span style="font-size:11px;color:var(--color-text-secondary)">แคชเชียร์</span>
+    <div class="avatar">A</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab on" onclick="sw('q',this)"><i class="ti ti-list" style="font-size:14px" aria-hidden="true"></i>คิวงาน</button>
+  <button class="tab" onclick="sw('v',this)"><i class="ti ti-shield-check" style="font-size:14px" aria-hidden="true"></i>รับงาน</button>
+</div>
+
+<div id="pq" class="pg on">
+  <div class="sgrid" id="stel"></div>
+  <div class="frow">
+    <button class="fb on" onclick="fl('all',this)">ทั้งหมด</button>
+    <button class="fb" onclick="fl('pending',this)">รอดำเนินการ</button>
+    <button class="fb" onclick="fl('working',this)">กำลังทำ</button>
+    <button class="fb" onclick="fl('ready',this)">รอรับ</button>
+    <button class="fb" onclick="fl('done',this)">เสร็จสิ้น</button>
+    <div class="srch"><i class="ti ti-search si" aria-hidden="true"></i><input type="text" id="sinp" placeholder="ชื่อ / รหัส" oninput="rl()"></div>
+  </div>
+  <div id="olist"></div>
+</div>
+
+<div id="pv" class="pg">
+  <div class="vw">
+    <div class="vc">
+      <p class="vt">ยืนยันรับงาน</p>
+      <p class="vs">รับรหัส 6 ตัวจากลูกค้า แล้วพิมพ์ที่นี่</p>
+      <input class="ci" id="vci" type="text" maxlength="6" placeholder="XXXXXX" oninput="this.value=this.value.toUpperCase()">
+      <button class="vb" onclick="dv()"><i class="ti ti-search" style="font-size:15px" aria-hidden="true"></i>ตรวจสอบ</button>
+    </div>
+    <div id="vres"></div>
+  </div>
+</div>
+
+<div class="toast" id="tst"></div>
+</div>
+
+<script>
+// ====== CONFIG ======
+var GAS_URL='https://script.google.com/macros/s/AKfycbwftK6Ias9BxonuW8tpJFT7p7mYPRcz9Aj0zUuumKq98f-b5cXbuQ6PE2LqJYY7umANpA/exec';
+// ====================
+
+var os=[];
+var cf='all';
+var mn=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+var slb={pending:'รอดำเนินการ',working:'กำลังทำ',ready:'เสร็จแล้ว รอรับ',done:'รับงานแล้ว'};
+var scl={pending:'bp',working:'bw',ready:'br',done:'bd'};
+var clb={bw:'ขาว-ดำ',color:'สี'};
+var bnb={none:'ไม่เย็บ',staple:'เย็บมุม',spiral:'สปริง',cover:'สันกาว',rod:'สันรูด',lacsin:'สันแล็คซีน'};
+var pyb={qr:'QR พร้อมเพย์',transfer:'โอนธนาคาร',cash:'เงินสด'};
+
+function loadOrders(){
+  document.getElementById('olist').innerHTML='<div class="emp">กำลังโหลด...</div>';
+  fetch(GAS_URL+'?action=getOrders')
+  .then(r=>r.json())
+  .then(res=>{
+    os=(res.orders||[]).map(function(o,i){
+      return {
+        id:i+1,
+        order_code:o.order_code,
+        customer_name:o.customer_name,
+        phone:o.phone,
+        color_type:o.color_type,
+        paper_size:o.paper_size,
+        binding:o.binding,
+        pages:parseInt(o.pages)||0,
+        copies:parseInt(o.copies)||0,
+        estimated_price:parseInt(o.estimated_price)||0,
+        pickup_date:o.pickup_date,
+        pickup_time:o.pickup_time,
+        payment_method:o.payment_method,
+        payment_status:o.payment_status,
+        note:o.note||'',
+        status:o.status||'pending',
+        notified:o.notified==='TRUE'||o.notified===true,
+        created_at:o.created_at||'',
+        slip:o.slip||''
+      };
+    });
+    st2();rl();
+  })
+  .catch(()=>{
+    document.getElementById('olist').innerHTML='<div class="emp">โหลดข้อมูลไม่สำเร็จ กรุณารีเฟรช</div>';
+  });
+}
+
+function gasUpdate(order_code, fields){
+  fetch(GAS_URL,{method:'POST',body:JSON.stringify(Object.assign({action:'updateStatus',order_code:order_code},fields))});
+}
+
+function fd(v){if(!v)return '-';var p=v.split('-');return parseInt(p[2])+' '+mn[parseInt(p[1])-1]+' '+(parseInt(p[0])+543);}
+
+var now=new Date();
+document.getElementById('dstr').textContent=now.getDate()+' '+mn[now.getMonth()]+' '+(now.getFullYear()+543);
+
+function sw(t,b){
+  document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+  document.getElementById('p'+t).classList.add('on');
+  b.classList.add('on');
+}
+
+function st2(){
+  var c={pending:0,working:0,ready:0,done:0};
+  os.forEach(function(o){c[o.status]++;});
+  document.getElementById('stel').innerHTML='<div class="sc"><div class="sn">'+os.length+'</div><div class="sl">ทั้งหมด</div></div><div class="sc"><div class="sn" style="color:#BA7517">'+(c.pending+c.working)+'</div><div class="sl">กำลังดำเนินการ</div></div><div class="sc"><div class="sn" style="color:#3B6D11">'+c.ready+'</div><div class="sl">รอลูกค้ารับ</div></div><div class="sc"><div class="sn" style="color:#888780">'+c.done+'</div><div class="sl">เสร็จสิ้น</div></div>';
+}
+
+function fl(f,b){cf=f;document.querySelectorAll('.fb').forEach(function(x){x.classList.remove('on');});b.classList.add('on');rl();}
+
+function rl(){
+  var q=document.getElementById('sinp').value.toLowerCase();
+  var list=os.filter(function(o){
+    var mf=cf==='all'||o.status===cf;
+    var mq=!q||o.order_code.toLowerCase().indexOf(q)>=0||o.customer_name.toLowerCase().indexOf(q)>=0||o.phone.indexOf(q)>=0;
+    return mf&&mq;
+  });
+  var el=document.getElementById('olist');
+  if(!list.length){el.innerHTML='<div class="emp"><i class="ti ti-inbox" style="font-size:26px;display:block;margin:0 auto 6px" aria-hidden="true"></i>ไม่มีรายการ</div>';return;}
+  el.innerHTML=list.map(function(o){
+    var slipHtml='';
+    if(o.slip){
+      var vbtns=o.payment_status!=='paid'?'<div class="slip-acts"><button class="ab gr" onclick="apsl('+o.id+')"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i>อนุมัติ</button><button class="ab rd" onclick="rjsl('+o.id+')"><i class="ti ti-x" style="font-size:12px" aria-hidden="true"></i>ปฏิเสธ</button></div>':'<span style="font-size:11px;color:#27500A;display:flex;align-items:center;gap:3px"><i class="ti ti-check" aria-hidden="true"></i>ยืนยันแล้ว</span>';
+      slipHtml='<div class="slip-box"><div class="slip-ic"><i class="ti ti-photo" style="font-size:18px;color:#378ADD" aria-hidden="true"></i></div><div class="slip-inf"><div class="slip-nm">'+o.slip+'</div><div class="slip-sb">สลิปชำระเงิน · '+(o.payment_status==='paid'?'ตรวจสอบแล้ว':'รอตรวจสอบ')+'</div></div>'+vbtns+'</div>';
+    }
+    var acts=ga(o);
+    var notifHtml=o.notified?'<div class="ns"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i>แจ้งลูกค้าแล้ว</div>':'';
+    return '<div class="oc" id="oc'+o.id+'"><div class="oh" onclick="tg('+o.id+')"><div class="ocode">'+o.order_code+'</div><div class="oi"><div class="oname">'+o.customer_name+'</div><div class="ometa">'+o.phone+' · รับ '+fd(o.pickup_date)+' '+o.pickup_time+' น.</div></div><div class="or"><span class="bdg '+(o.payment_status==='paid'?'bpaid':'bcash')+'">'+(o.payment_status==='paid'?'จ่ายแล้ว':'เงินสด')+'</span><span class="bdg '+scl[o.status]+'">'+slb[o.status]+'</span><i class="ti ti-chevron-down chv" id="cv'+o.id+'" aria-hidden="true"></i></div></div><div class="ob" id="ob'+o.id+'"><div class="dgrid"><div class="dr"><span class="dl">รายละเอียดงาน</span><span class="dv">'+clb[o.color_type]+' · '+o.paper_size+' · '+bnb[o.binding]+'</span></div><div class="dr"><span class="dl">จำนวน</span><span class="dv">'+o.pages+' หน้า × '+o.copies+' ชุด</span></div><div class="dr"><span class="dl">วันรับ</span><span class="dv">'+fd(o.pickup_date)+' · '+o.pickup_time+' น.</span></div><div class="dr"><span class="dl">ยอดชำระ</span><span class="dv" style="color:#185FA5">'+o.estimated_price+' ฿</span></div><div class="dr"><span class="dl">ช่องทาง</span><span class="dv">'+pyb[o.payment_method]+'</span></div>'+(o.note?'<div class="dr"><span class="dl">หมายเหตุ</span><span class="dv">'+o.note+'</span></div>':'')+'</div>'+slipHtml+'<div class="ar">'+acts+'</div>'+notifHtml+'</div></div>';
+  }).join('');
+}
+
+function ga(o){
+  var b='';
+  if(o.status==='pending') b+='<button class="ab bl" onclick="upd('+o.id+',\'working\')"><i class="ti ti-player-play" style="font-size:12px" aria-hidden="true"></i>เริ่มทำ</button>';
+  if(o.status==='working') b+='<button class="ab gr" onclick="upd('+o.id+',\'ready\')"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i>ทำเสร็จแล้ว</button>';
+  if(o.status==='ready'&&!o.notified) b+='<button class="ab am" onclick="ntf('+o.id+')"><i class="ti ti-bell" style="font-size:12px" aria-hidden="true"></i>แจ้งลูกค้า</button>';
+  if(o.status==='ready') b+='<button class="ab" onclick="jv(\''+o.order_code+'\')"><i class="ti ti-shield-check" style="font-size:12px" aria-hidden="true"></i>ยืนยันรับงาน</button>';
+  if(o.status!=='done') b+='<button class="ab rd" onclick="upd('+o.id+',\'done\')"><i class="ti ti-x" style="font-size:12px" aria-hidden="true"></i>ยกเลิก</button>';
+  return b;
+}
+
+function tg(id){
+  var b=document.getElementById('ob'+id);
+  var c=document.getElementById('cv'+id);
+  var op=b.classList.toggle('open');
+  c.style.transform=op?'rotate(180deg)':'';
+}
+
+function upd(id,s){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  o.status=s;
+  gasUpdate(o.order_code,{status:s});
+  if(s==='ready') toast('ทำเสร็จแล้ว กด "แจ้งลูกค้า" เพื่อส่งแจ้งเตือน');
+  st2();rl();
+  setTimeout(function(){tg(id);},40);
+}
+
+function apsl(id){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  o.payment_status='paid';
+  gasUpdate(o.order_code,{payment_status:'paid'});
+  toast('อนุมัติสลิปแล้ว');st2();rl();setTimeout(function(){tg(id);},40);
+}
+
+function rjsl(id){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  o.slip=null;o.payment_status='pending';toast('ปฏิเสธสลิป — แจ้งลูกค้าส่งใหม่');rl();setTimeout(function(){tg(id);},40);
+}
+
+// ====== LINE CONFIG (ใส่ URL จาก Google Apps Script) ======
+var GAS_URL='https://script.google.com/macros/s/AKfycbzLZl_4eNOkM1Ty1gv7hFoRtRrB_33ObywIyP0PY0a19y4cueLiEww7XbYkUCxckTI3/exec';
+// ===========================================================
+
+function ntf(id){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  var bnbFull={none:'ไม่เย็บ',staple:'เย็บมุม',spiral:'สปริง',cover:'สันกาว',rod:'สันรูด',lacsin:'สันแล็คซีน'};
+  var msg='✅ งานพร้อมรับแล้วค่ะ!\n'
+    +'────────────────\n'
+    +'📋 รหัส: '+o.order_code+'\n'
+    +'👤 ชื่อ: '+o.customer_name+'\n'
+    +'📄 งาน: '+(o.color_type==='color'?'สี':'ขาว-ดำ')+' · '+o.paper_size+' · '+(bnbFull[o.binding]||o.binding)+'\n'
+    +'🔢 จำนวน: '+o.pages+' หน้า × '+o.copies+' ชุด\n'
+    +'💰 ยอด: '+o.estimated_price+' ฿\n'
+    +'🕐 รับได้: '+fd(o.pickup_date)+' '+o.pickup_time+' น.\n'
+    +(o.note?'📝 หมายเหตุ: '+o.note+'\n':'')
+    +'────────────────\n'
+    +'กรุณานำรหัสมาแสดงที่ร้านค่ะ 🙏';
+  if(GAS_URL==='YOUR_GAS_URL'){
+    o.notified=true;
+    toast('⚠️ ยังไม่ได้ตั้งค่า GAS URL');
+    rl();setTimeout(function(){tg(id);},40);
+    return;
+  }
+  toast('กำลังส่งแจ้งเตือน LINE...');
+  fetch(GAS_URL,{method:'POST',body:JSON.stringify({ action:'notifyLine', message:msg})})
+  .then(function(){
+    o.notified=true;
+    gasUpdate(o.order_code,{notified:true});
+    toast('✅ ส่ง LINE ให้ '+o.customer_name+' แล้ว');
+    rl();setTimeout(function(){tg(id);},40);
+  })
+  .catch(function(){
+    toast('❌ ส่งไม่สำเร็จ ตรวจสอบการเชื่อมต่อ');
+  });
+}
+
+function jv(code){
+  document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on');});
+  document.getElementById('pv').classList.add('on');
+  document.querySelectorAll('.tab')[1].classList.add('on');
+  document.getElementById('vci').value=code;
+  document.getElementById('vres').innerHTML='';
+  setTimeout(dv,60);
+}
+
+function dv(){
+  var code=document.getElementById('vci').value.trim().toUpperCase();
+  var res=document.getElementById('vres');
+  if(code.length<6){res.innerHTML='<div class="res rer"><div class="rt"><i class="ti ti-alert-circle" aria-hidden="true"></i>กรุณาพิมพ์รหัส 6 ตัว</div></div>';return;}
+  var o=os.find(function(x){return x.order_code===code;});
+  if(!o){res.innerHTML='<div class="res rer"><div class="rt"><i class="ti ti-x" aria-hidden="true"></i>ไม่พบรหัสนี้ในระบบ</div><div class="rb">ตรวจสอบรหัสอีกครั้ง</div></div>';return;}
+  if(o.status==='done'){res.innerHTML='<div class="res rer"><div class="rt"><i class="ti ti-alert-circle" aria-hidden="true"></i>รหัสนี้ใช้ไปแล้ว</div><div class="rb">งานของ '+o.customer_name+' รับไปแล้ว</div></div>';return;}
+  if(o.payment_status!=='paid'){res.innerHTML='<div class="res rwn"><div class="rt"><i class="ti ti-cash" aria-hidden="true"></i>ยังไม่ชำระเงิน</div><div class="rb">ชื่อ: '+o.customer_name+'<br>ยอด: '+o.estimated_price+' ฿ ('+pyb[o.payment_method]+')<br>กรุณารับเงินก่อนส่งงาน</div></div><button class="cpb" onclick="cc('+o.id+')"><i class="ti ti-cash" style="font-size:14px" aria-hidden="true"></i>รับเงินสด '+o.estimated_price+' ฿ เรียบร้อย</button>';return;}
+  if(o.status!=='ready'){var wm=o.status==='pending'?'งานยังรอดำเนินการ':'งานกำลังทำอยู่';res.innerHTML='<div class="res rwn"><div class="rt"><i class="ti ti-clock" aria-hidden="true"></i>'+wm+'</div><div class="rb">ชื่อ: '+o.customer_name+'<br>สถานะ: '+slb[o.status]+'<br>แจ้งลูกค้ารอสักครู่</div></div>';return;}
+  res.innerHTML='<div class="res rok"><div class="rt"><i class="ti ti-circle-check" aria-hidden="true"></i>ถูกต้อง — งานพร้อมส่ง</div><div class="rb">ชื่อ: '+o.customer_name+' · '+o.phone+'<br>งาน: '+clb[o.color_type]+' · '+o.paper_size+' · '+bnb[o.binding]+' · '+o.pages+'×'+o.copies+'<br>ยอด: <strong>'+o.estimated_price+' ฿</strong> (จ่ายแล้ว)'+(o.note?'<br>หมายเหตุ: '+o.note:'')+'</div></div><button class="cpb" onclick="cmp('+o.id+')"><i class="ti ti-package" style="font-size:14px" aria-hidden="true"></i>ส่งงานเรียบร้อย — ปิดออเดอร์</button>';
+}
+
+function cc(id){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  o.payment_status='paid';toast('รับเงินสด '+o.estimated_price+' ฿ แล้ว');
+  if(o.status==='ready')setTimeout(function(){cmp(id);},300);else dv();
+}
+
+function cmp(id){
+  var o=os.find(function(x){return x.id===id;});
+  if(!o)return;
+  o.status='done';
+  gasUpdate(o.order_code,{status:'done'});
+  st2();
+  document.getElementById('vres').innerHTML='<div class="res rok"><div class="rt"><i class="ti ti-check" aria-hidden="true"></i>ส่งงานสำเร็จ!</div><div class="rb">'+o.customer_name+' · '+o.estimated_price+' ฿ · ปิดออเดอร์แล้ว</div></div>';
+  document.getElementById('vci').value='';
+  toast('ปิดออเดอร์ '+o.order_code+' แล้ว');
+}
+
+function toast(msg){
+  var t=document.getElementById('tst');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2500);
+}
+
+// โหลดข้อมูลตอนเริ่ม และ auto-refresh ทุก 30 วินาที
+loadOrders();
+setInterval(loadOrders, 30000);
+</script>
